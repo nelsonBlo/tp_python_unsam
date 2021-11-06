@@ -17,6 +17,8 @@ def leer_archivo(id_estacion):
         os.makedirs(directorio_datos)
     if not os.path.isfile(ruta_completa):
         url = f'http://siga2.inta.gov.ar/document/series/{id_estacion}.xls'
+        print('Descargando archivo de datos...','\n')
         r = requests.get(url, allow_redirects=True)
         open(ruta_completa, 'wb').write(r.content)
+        print('Abriendo archivo de datos...','\n')
     return pd.read_excel(ruta_completa)
