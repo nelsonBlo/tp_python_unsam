@@ -1,7 +1,5 @@
 # tp_python_unsam
 
-
-
 Objetivo del trabajo:
 
 Determinar si las estimaciones del porcentaje de cobertura nubosa media mensual satelital
@@ -25,3 +23,12 @@ estimación cercanos, esperando que la misma exista y, en particular, que sea ne
 
 * https://www.ncei.noaa.gov/products/international-satellite-cloud-climatology
 ** http://siga2.inta.gov.ar/#
+
+
+Instalación:
+1. Se recomienda utilizar un Entorno Virtual de Python.
+2. Instalar las librerías requeridas con: 'pip install -r requirements.txt'
+
+
+Ejecución:
+1. Ejecutar el archivo 'procesar_datos.py'
