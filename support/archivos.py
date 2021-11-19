@@ -51,6 +51,7 @@ def leer_nc(fecha):
     return xr.open_dataset(ruta_completa)[["cldamt"]]
 
 
+### estas ya no son necesarias: (reemplazado con la definicion de objeto en data_nc.py)
 def leer_grilla_nc(fecha):
     data = leer_nc(fecha)
     return data.lon.values, data.lat.values
