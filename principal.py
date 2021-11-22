@@ -70,31 +70,68 @@ print(abre_y_acomoda_nc(inicio_periodo, fin_periodo, ubicacion_satelite[0], ubic
 ### borradores: ####
 #%% Uno data frames de salida y los grafico
 ### DEJARLO LINDO, poner etiqueta con funcion que relaciona estas variables. ARMAR FUNCIONES APARTE ###
-import pandas as pd
+# import pandas as pd
+
+# inta = pd.DataFrame(obtener_datos_estacion_inta(estacion_id)[0])
+# satelital =  abre_y_acomoda_nc(inicio_periodo, fin_periodo, ubicacion_satelite[0], ubicacion_satelite[1])
+
+# inta_satelital = pd.concat([inta['Radiacion_Global'], satelital["ISCCP"]], axis = 1)
+
+# def ajuste_lineal_simple(x,y):
+#     a = np.nansum(((x - x.mean())*(y-y.mean()))) / np.nansum(((x-x.mean())**2))
+#     b = y.mean() - a*x.mean()
+#     return a, b
+
+# a, b = ajuste_lineal_simple(inta_satelital['Radiacion_Global'], inta_satelital["ISCCP"])
+# grilla_x = np.linspace(start = min(inta_satelital['Radiacion_Global']), stop = max(inta_satelital['Radiacion_Global']), num = 1000)
+# grilla_y = grilla_x*a + b
+
+# import matplotlib.pyplot as plt
+# plt.scatter(inta_satelital['Radiacion_Global'], inta_satelital["ISCCP"] )
+# plt.title('y ajuste lineal')
+# plt.plot(grilla_x, grilla_y, c = 'green')
+# plt.xlabel('x')
+# plt.ylabel('y')
+# #%%
+#%% nuevas variables y funciones concatenar_df y scatter
+import matplotlib.pyplot as plt
 
 inta = pd.DataFrame(obtener_datos_estacion_inta(estacion_id)[0])
 satelital =  abre_y_acomoda_nc(inicio_periodo, fin_periodo, ubicacion_satelite[0], ubicacion_satelite[1])
 
-inta_satelital = pd.concat([inta['Radiacion_Global'], satelital["ISCCP"]], axis = 1)
+df_radiacion = inta['Radiacion_Global']
+df_nubosidad = satelital["ISCCP"]
+               
+ 
+def concatenar_df(df_radiacion, df_nubosidad):
+    inta_satelital = pd.concat([df_radiacion, df_nubosidad], axis = 1)
+    return inta_satelital
+
 
 def ajuste_lineal_simple(x,y):
     a = np.nansum(((x - x.mean())*(y-y.mean()))) / np.nansum(((x-x.mean())**2))
     b = y.mean() - a*x.mean()
     return a, b
 
-a, b = ajuste_lineal_simple(inta_satelital['Radiacion_Global'], inta_satelital["ISCCP"])
-grilla_x = np.linspace(start = min(inta_satelital['Radiacion_Global']), stop = max(inta_satelital['Radiacion_Global']), num = 1000)
+inta_satelital = concatenar_df(df_radiacion, df_nubosidad)
+inta_satelital_r = inta_satelital['Radiacion_Global']
+inta_satelital_n = inta_satelital["ISCCP"]
+
+a, b = ajuste_lineal_simple(inta_satelital_r, inta_satelital_n)
+grilla_x = np.linspace(start = min(inta_satelital_r), stop = max(inta_satelital_r), num = 1000)
 grilla_y = grilla_x*a + b
 
-import matplotlib.pyplot as plt
-plt.scatter(inta_satelital['Radiacion_Global'], inta_satelital["ISCCP"] )
-plt.title('y ajuste lineal')
-plt.plot(grilla_x, grilla_y, c = 'green')
-plt.xlabel('x')
-plt.ylabel('y')
 
+def scatter():
+    plt.scatter(inta_satelital_r, inta_satelital_n)
+    plt.title('y ajuste lineal')
+    plt.plot(grilla_x, grilla_y, c = 'green')
+    plt.xlabel('precipitacion')
+    plt.ylabel('nubosidad')
+
+scatter()
 #%% Grafico mapa 
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import geopandas as gpd
 from shapely.geometry import Point
 import cartopy.crs as ccrs
