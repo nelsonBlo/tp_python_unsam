@@ -1,6 +1,8 @@
 #data_nc.py
 
 class DataNC():
+    """clase para datos satelitales
+    """
     def __init__(self, data):
         self.data = data
         self.longitud = None

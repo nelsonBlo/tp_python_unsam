@@ -5,6 +5,8 @@ uri = "http://siga2.inta.gov.ar/valor.php?param_type=estacion&param_value="
 
 
 class EstacionInta():
+    """ clase para datos INTA
+    """
     def __init__(self, estacion_id):
         self.estacion_id = estacion_id
         self.data = None
@@ -18,7 +20,7 @@ class EstacionInta():
         """Devuelve una tupla con la ubicación de la estación: (latitud, longitud)"""
         for estacion in self.data:
             if self.estacion_id == estacion['idInterno']:
-                return estacion['latitud'], estacion['longitud']
+                return estacion['longitud'], estacion['latitud']
         return None
 
     def latitud(self):

@@ -28,11 +28,11 @@ def leer_archivo_xls(id_estacion):
 
 def leer_nc(fecha):
     """
-        Fecha = datetime 'yyyy-mm-dd'
-        Verifica si el directorio de datos (../archivos_nc) existe. Si no existe, lo crea.
-        Luego, verifica si el archivo de datos correspondiente a esas fechas existe en el directorio de datos.
-        Si no existe, lo descarga desde el repositorio de la NOAA, lo guarda en el directorio de datos.
-        Abre el dato de cldamt de fecha para el punto (longitud, latitud)"""
+    Fecha = datetime 'yyyy-mm-dd'
+    Verifica si el directorio de datos (../archivos_nc) existe. Si no existe, lo crea.
+    Luego, verifica si el archivo de datos correspondiente a esas fechas existe en el directorio de datos.
+    Si no existe, lo descarga desde el repositorio de la NOAA, lo guarda en el directorio de datos.
+    Abre el dato de cldamt de fecha para el punto (longitud, latitud)"""
 
     anio = fecha.year
     mes = f'{fecha.month:02d}'
@@ -50,16 +50,3 @@ def leer_nc(fecha):
         open(ruta_completa, 'wb').write(r.content)
     return xr.open_dataset(ruta_completa)[["cldamt"]]
 
-
-### estas ya no son necesarias: (reemplazado con la definicion de objeto en data_nc.py)
-def leer_grilla_nc(fecha):
-    data = leer_nc(fecha)
-    return data.lon.values, data.lat.values
-
-
-def leer_nubosidad_nc(fecha, longitud, latitud):
-    data = leer_nc(fecha)
-    return data.loc[dict(lon=longitud, lat=latitud)]["cldamt"].values[0]
-
-
-# print(leer_nubosidad_nc(datetime.datetime(1983, 7, 1), 300.5, -40.5))
