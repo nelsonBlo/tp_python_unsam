@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import datetime
 from support import data_nc, archivos
+from tqdm import tqdm
 
 
 def punto_cercano(ubicacion, latitud_satelite, longitud_satelite):
@@ -23,6 +24,6 @@ def abre_y_acomoda_nc(inicio_periodo, fin_periodo, longitud, latitud):
     """
     print(f" \n Los datos de nubosidad del punto ({longitud-360}, {latitud}) se estan procesando, esto puede demorar...")
     fechas = pd.date_range(start=inicio_periodo, end=fin_periodo, freq="M")
-    serie = [data_nc.DataNC(archivos.leer_nc(fecha)).leer_nubosidad_punto(longitud, latitud) for fecha in fechas]
+    serie = [data_nc.DataNC(archivos.leer_nc(fecha)).leer_nubosidad_punto(longitud, latitud) for fecha in tqdm(fechas)]
     panda_serie = pd.DataFrame(serie, index=fechas, columns=["ISCCP"])
     return panda_serie
