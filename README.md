@@ -31,5 +31,5 @@ Instalación:
 
 
 Ejecución:
-1. Ejecutar el archivo 'procesar_datos.py'
+1. Ejecutar el archivo 'principal.py'
 2. Ingresar el identificador de una estación INTA.
