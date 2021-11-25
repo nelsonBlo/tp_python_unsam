@@ -4,7 +4,7 @@ Objetivo del trabajo:
 
 Determinar si las estimaciones del porcentaje de cobertura nubosa media mensual satelital
 de la base de datos ISCCP-H* son representativas de la nubosidad en superficie en el
-Noreste Argentino.
+territorio Argentino.
 
 Integrantes del grupo:
 
